@@ -4,7 +4,7 @@ namespace ConsoleApp1
 {
     public static class Test1
     {
-        /*public static void Main()
+        public static void Main()
         {
             // Write chars concurrently with multiple threads
             Task.Factory.StartNew(() => Write(','));
@@ -43,7 +43,7 @@ namespace ConsoleApp1
                 Console.Write(o);
                 i++;
             }
-        }*/
+        }
     }
 }
 
