@@ -43,7 +43,8 @@ namespace Synchronization
                         }
                         // Release lock should be under finally section to ensure lock gets released
                         // Even if there is an exception, lock should be released
-                        // Otherwise it leads to LockRecursionException
+                        // Otherwise it leads to LockRecursionException since we retry taking the same lock
+                        // and spin lock does not support recursion
                         finally
                         {
                             // If lock was acquired, release it.
