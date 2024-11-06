@@ -48,7 +48,7 @@ namespace ConsoleApp1
             Console.ReadLine();
         }
 
-        // Throw exception on cancelation - canonical way recommended by TPL
+        // Wait on cancelation token
         private static void WaitOnTask3()
         {
             CancellationTokenSource cts = new CancellationTokenSource();
