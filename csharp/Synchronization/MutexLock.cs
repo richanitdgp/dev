@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace Synchronization
 {
-    public static class SpinWait
+    public static class MutexLock
     {
         public static void Main()
         {
@@ -18,12 +18,7 @@ namespace Synchronization
         {
             BankAccount account1 = new BankAccount();
             List<Task> tasks = new List<Task>();
-
-            // Create new instance of spinlock
-            // Lock that keeps spinning while waiting for the lock to be available
-            SpinLock lock1 = new SpinLock();
-
-            
+            Mutex mutex1 = new Mutex();
 
             for(int i=0; i< 10; i++)
             {
@@ -32,24 +27,20 @@ namespace Synchronization
                     for (int j=0; j<1000; j++)
                     {
                         // Bool to indiciate whether lock was taken.
-                        bool lockTaken = false;
+                        bool haveLock = mutex1.WaitOne();
 
                         try
                         {
-                            // Task keeps spinning till lock gets acquired
-                            // Perform deposit only after lock acquired
-                            lock1.Enter(ref lockTaken);
+                            // Entered critical section - perform operation
                             account1.Deposit(100);
                         }
                         // Release lock should be under finally section to ensure lock gets released
                         // Even if there is an exception, lock should be released
-                        // Otherwise it leads to LockRecursionException since we retry taking the same lock
-                        // and spin lock does not support recursion
                         finally
                         {
                             // If lock was acquired, release it.
-                            if (lockTaken)
-                                lock1.Exit();
+                            if (haveLock)
+                                mutex1.ReleaseMutex();
                         }
                         
                     }
@@ -60,20 +51,17 @@ namespace Synchronization
                     for (int j=0; j<1000; j++)
                     {
                         // Bool to indiciate whether lock was taken.
-                        bool lockTaken = false;
+                        bool haveLock = mutex1.WaitOne();
 
                         try
                         {
-                            // Task keeps spinning till lock gets acquired
-                            // Perform withdrawal only after lock acquired
-                            lock1.Enter(ref lockTaken);
                             account1.Withdraw(100);
                         }
                         finally
                         {
                             // Release if lock was acquired
-                            if (lockTaken)
-                                lock1.Exit();
+                            if (haveLock)
+                                mutex1.ReleaseMutex();
                         }
                     }
                 }));
