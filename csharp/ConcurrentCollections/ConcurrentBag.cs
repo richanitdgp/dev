@@ -19,6 +19,7 @@ namespace ConcurrentCollections
                     Console.WriteLine($"The task {Task.CurrentId} has added item {item} to the bag");
 
                     int res;
+                    // Try to peek at an item without removing it
                     if(bag.TryPeek(out res))
                     {
                         Console.WriteLine($"Task {Task.CurrentId} has peeked item {res}");
