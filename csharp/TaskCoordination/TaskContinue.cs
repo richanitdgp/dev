@@ -14,6 +14,9 @@ namespace TaskCoordination
             Console.WriteLine("Main program done");
         }
 
+        // In the .NET Task Parallel Library, the ContinueWith method is used to define and execute a continuation task 
+        // that runs after a specified antecedent Task has completed. 
+        // This allows for chaining operations, where one task's completion triggers the execution of another, enabling more complex asynchronous workflows. 
         public static void PerformTasks1()
         {
             Task task1 = Task.Factory.StartNew(() =>
