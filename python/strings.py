@@ -17,3 +17,11 @@ print(s2.upper())
 print(s2.lower())
 print(s2.split())
 print(s2.split('i'))
+
+print("Name of those friends were {0}, {1} and {2}".format("Bob", "Tom", "Alice"))
+
+name = "Tom"
+print(f"His name is {name}")
+
+age = 3
+print(f"{name} is {age} years old")
