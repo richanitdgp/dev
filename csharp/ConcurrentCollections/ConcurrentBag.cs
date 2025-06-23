@@ -7,6 +7,8 @@ namespace ConcurrentCollections
     {
         public static void Main()
         {
+            // ConcurrentBag<T> is a thread-safe, unordered collection of objects. 
+            // It's part of the System.Collections.Concurrent namespace and is designed for scenarios where you have multiple threads adding and removing items from a collection, and the order of items is not important.
             ConcurrentBag<int> bag = new ConcurrentBag<int>();
             List<Task> tasks = new List<Task>();
 
