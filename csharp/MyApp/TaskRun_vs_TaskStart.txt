@@ -1,0 +1,16 @@
+Q. In C# what is the difference between Task.Start() vs. Task.Run()
+
+Task.Start()
+Instance Method: Task.Start() is an instance method that you call on an existing Task object. This means you first create a Task instance using one of its constructors, and then explicitly call Start() to schedule it for execution.
+Manual Control: It gives you more granular control over when a task begins. You can create a task and hold onto it, potentially configuring it or passing it around, before deciding to start it.
+Less Common in Modern Async/Await: With the introduction of async and await, Task.Start() is generally less used for typical asynchronous operations. It's often associated with older patterns or specific scenarios where you need to decouple task creation from its immediate execution.
+Scheduler: By default, Task.Start() schedules the task to the TaskScheduler.Current scheduler. If you're not in a specific synchronization context (like a UI thread), it will often fall back to TaskScheduler.Default, which typically uses the thread pool. However, you can explicitly pass a TaskScheduler to Start().
+Single Start: A task can only be started once. Calling Start() on an already started or completed task will result in an InvalidOperationException.
+
+
+Task.Run()
+Static Method: Task.Run() is a static method that acts as a convenience wrapper. It both creates and schedules a Task to run on the default TaskScheduler (which is typically the ThreadPool).
+Simplicity and Convenience: It's the preferred way to offload CPU-bound work to a background thread when using async/await. It simplifies the process by doing the creation and starting in one call.
+Thread Pool: Task.Run() implicitly uses the ThreadPool for execution. This is generally efficient because the ThreadPool manages a pool of threads, reusing them to avoid the overhead of creating new threads for each task.
+Error Handling: Task.Run() is designed to work well with async/await for error propagation. Exceptions thrown within the Task.Run delegate are wrapped in the Task and can be awaited and caught in the calling code.
+Recommended for Most Cases: For most scenarios where you want to execute an operation in the background without blocking the calling thread, Task.Run() is the recommended approach.
