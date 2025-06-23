@@ -22,6 +22,7 @@ namespace Synchronization
 
             for(int i=0; i< 10; i++)
             {
+                // This could be replaced with tasks.Add(Task.Run(() => {});
                 tasks.Add(Task.Factory.StartNew(() =>
                 {
                     for (int j=0; j<1000; j++)
@@ -46,6 +47,7 @@ namespace Synchronization
                     }
                 }));
 
+                // This could be replaced with tasks.Add(Task.Run(() => {});
                 tasks.Add(Task.Factory.StartNew(() =>
                 {
                     for (int j=0; j<1000; j++)
