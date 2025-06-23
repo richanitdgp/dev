@@ -19,6 +19,7 @@ namespace TaskCoordination
         // This allows for chaining operations, where one task's completion triggers the execution of another, enabling more complex asynchronous workflows. 
         public static void PerformTasks1()
         {
+            // This can be replaced with Task.Run()
             Task task1 = Task.Factory.StartNew(() =>
             {
                 Console.WriteLine("Boiling water...");
