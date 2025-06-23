@@ -101,7 +101,7 @@ namespace ConsoleApp1
                 Console.WriteLine("task2 complete");
             }, token);
 
-            // Wait for all the specified tasks to complete
+            // Wait for any one out of the specified tasks to complete
             Console.WriteLine("Main program waiting for any one out of task1 and task2 to complete...");
             Task.WaitAny(task1, task2);
         }
